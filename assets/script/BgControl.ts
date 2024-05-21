@@ -1,15 +1,25 @@
 import {_decorator, Collider2D, Component, Contact2DType, Node, PhysicsSystem2D} from 'cc';
 import {BulletControl} from './BulletControl';
 import {EnemyControl} from './EnemyControl';
+import {EndModal} from './EndModal';
 
 const {ccclass, property} = _decorator;
 
 @ccclass('BgControl')
 export class BgControl extends Component {
+    collide: boolean = false
+    @property({type: EndModal})
+    public EndModalNode: EndModal | null = null
+
     start() {
         PhysicsSystem2D.instance.on(
             Contact2DType.BEGIN_CONTACT,
             this.onBeginContact,
+            this
+        );
+        PhysicsSystem2D.instance.on(
+            Contact2DType.BEGIN_CONTACT,
+            this.onBeginContactSelf,
             this
         );
     }
@@ -25,6 +35,19 @@ export class BgControl extends Component {
         }
     }
 
+    //与用户相撞
+    onBeginContactSelf(self: Collider2D, other: Collider2D) {
+        if (self.tag === 2 || other.tag === 2) {
+            if (self.tag === 1) {
+                self.getComponent(EnemyControl)?.die()
+            }
+            if (other.tag === 1) {
+                other.getComponent(EnemyControl)?.die()
+            }
+            this.EndModalNode.node.active = true
+            this.collide = true
+        }
+    }
 
     update(deltaTime: number) {
         for (const item of this.node.children) {
