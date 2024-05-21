@@ -1,4 +1,6 @@
 import {_decorator, Collider2D, Component, Contact2DType, Node, PhysicsSystem2D} from 'cc';
+import {BulletControl} from './BulletControl';
+import {EnemyControl} from './EnemyControl';
 
 const {ccclass, property} = _decorator;
 
@@ -11,11 +13,17 @@ export class BgControl extends Component {
             this
         );
     }
+
     // 只在两个碰撞体开始接触时被调用一次
     onBeginContact(self: Collider2D, other: Collider2D) {
-        console.log("self",self,"other",other)
+        if (self.tag === 0 && other.tag === 1) {
+            self.getComponent(BulletControl)?.die()
+            other.getComponent(EnemyControl)?.die()
+        } else if (self.tag === 1 && other.tag === 0) {
+            self.getComponent(EnemyControl)?.die()
+            other.getComponent(BulletControl)?.die()
+        }
     }
-
 
 
     update(deltaTime: number) {

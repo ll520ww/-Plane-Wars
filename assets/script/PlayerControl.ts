@@ -2,8 +2,8 @@ import {_decorator, Component, EventTouch, instantiate, Node, Prefab, v3} from '
 
 const {ccclass, property} = _decorator;
 
-@ccclass('playerControl')
-export class playerControl extends Component {
+@ccclass('PlayerControl')
+export class PlayerControl extends Component {
     @property(Prefab)
     bullet: Prefab = null;
 
@@ -20,8 +20,6 @@ export class playerControl extends Component {
         }, 0.2);
     }
 
-    update(deltaTime: number) {
-
-    }
+    update(deltaTime: number) {}
 }
 
