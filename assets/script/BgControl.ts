@@ -1,4 +1,4 @@
-import {_decorator, Collider2D, Component, Contact2DType, Node, PhysicsSystem2D} from 'cc';
+import {_decorator, Collider2D, Component, Contact2DType, Label, Node, PhysicsSystem2D} from 'cc';
 import {BulletControl} from './BulletControl';
 import {EnemyControl} from './EnemyControl';
 import {EndModal} from './EndModal';
@@ -9,6 +9,10 @@ const {ccclass, property} = _decorator;
 export class BgControl extends Component {
     @property({type: EndModal})
     public EndModalNode: EndModal | null = null
+    @property({type: Label})
+    public stepsLabel: Label | null = null;
+
+    step: number = 0
 
     start() {
         PhysicsSystem2D.instance.on(
@@ -28,9 +32,13 @@ export class BgControl extends Component {
         if (self.tag === 0 && other.tag === 1) {
             self.getComponent(BulletControl)?.die()
             other.getComponent(EnemyControl)?.die()
+            this.stepsLabel.string = String(this.step + 1)
+            this.step += 1
         } else if (self.tag === 1 && other.tag === 0) {
             self.getComponent(EnemyControl)?.die()
             other.getComponent(BulletControl)?.die()
+            this.stepsLabel.string = String(this.step + 1)
+            this.step += 1
         }
     }
 
