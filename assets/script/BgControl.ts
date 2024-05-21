@@ -7,7 +7,6 @@ const {ccclass, property} = _decorator;
 
 @ccclass('BgControl')
 export class BgControl extends Component {
-    collide: boolean = false
     @property({type: EndModal})
     public EndModalNode: EndModal | null = null
 
@@ -45,7 +44,6 @@ export class BgControl extends Component {
                 other.getComponent(EnemyControl)?.die()
             }
             this.EndModalNode.node.active = true
-            this.collide = true
         }
     }
 
