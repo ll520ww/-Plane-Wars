@@ -13,13 +13,14 @@ export class PlayerControl extends Component {
             this.node.setWorldPosition(v3(x, y))
         })
         this.schedule(() => {
-            const { x, y } = this.node.getPosition();
+            const {x, y} = this.node.getPosition();
             const node = instantiate(this.bullet);
             node.setParent(this.node.parent);
             node.setPosition(x, y + 70);
-        }, 0.2);
+        }, 0.5);
     }
 
-    update(deltaTime: number) {}
+    update(deltaTime: number) {
+    }
 }
 
