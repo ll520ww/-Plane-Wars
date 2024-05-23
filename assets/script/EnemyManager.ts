@@ -7,14 +7,16 @@ export class EnemyManager extends Component {
     @property(Prefab)
     enemy: Prefab
 
+    productEnemy() {
+        const {x, y} = this.node.getPosition()
+        const node = instantiate(this.enemy)
+        const moveX = (Math.random() * 2 - 1) * 200
+        node.setPosition(moveX, y)
+        this.node.addChild(node)
+    }
+
     start() {
-        this.schedule(() => {
-            const {x, y} = this.node.getPosition()
-            const node = instantiate(this.enemy)
-            const moveX=(Math.random() * 2 - 1) * 200
-            node.setPosition(moveX, y)
-            this.node.addChild(node)
-        }, 0.5)
+        this.schedule(this.productEnemy, 0.5)
     }
 
     update(deltaTime: number) {

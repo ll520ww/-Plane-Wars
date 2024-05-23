@@ -8,16 +8,27 @@ export class PlayerControl extends Component {
     bullet: Prefab = null;
 
     start() {
-        this.node.on(Node.EventType.TOUCH_MOVE, (e: EventTouch) => {
-            const {x, y} = e.getUILocation()
-            this.node.setWorldPosition(v3(x, y))
-        })
-        this.schedule(() => {
-            const {x, y} = this.node.getPosition();
-            const node = instantiate(this.bullet);
-            node.setParent(this.node.parent);
-            node.setPosition(x, y + 70);
-        }, 0.5);
+        this.isAddlisten(true)
+    }
+
+    onMove(e: EventTouch) {
+        const {x, y} = e.getUILocation()
+        this.node.setWorldPosition(v3(x, y))
+    }
+
+    isAddlisten(e) {
+        if (e) {
+            this.node.on(Node.EventType.TOUCH_MOVE, this.onMove,this)
+            this.schedule(() => {
+                const {x, y} = this.node.getPosition();
+                const node = instantiate(this.bullet);
+                node.setParent(this.node.parent);
+                node.setPosition(x, y + 70);
+            }, 0.5);
+        } else {
+            this.node.off(Node.EventType.TOUCH_MOVE, this.onMove,this)
+            this.unscheduleAllCallbacks()
+        }
     }
 
     update(deltaTime: number) {
