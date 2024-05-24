@@ -5,6 +5,7 @@ import {
     Sprite,
     SpriteFrame,
 } from 'cc';
+import {GameManager} from './GameManager';
 
 const {ccclass, property} = _decorator;
 
@@ -12,6 +13,7 @@ const {ccclass, property} = _decorator;
 export class EnemyControl extends Component {
     isDead: boolean = false
     airplaneDeadImages: any[] = [];
+
 
     start() {
         this.loadImages()

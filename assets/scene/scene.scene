@@ -530,12 +530,6 @@
     "GameManagerNode": {
       "__id__": 14
     },
-    "stepsLabel": {
-      "__id__": 23
-    },
-    "PlayerControlNode": {
-      "__id__": 58
-    },
     "_id": "f042L9//ZNioDne/r07qnw"
   },
   {
@@ -563,8 +557,8 @@
     "PlayerControlNode": {
       "__id__": 58
     },
-    "BgControlNode": {
-      "__id__": 5
+    "stepsLabel": {
+      "__id__": 23
     },
     "_id": "658uZ2XQ9HU7MNbhdtMZEX"
   },

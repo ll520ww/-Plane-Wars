@@ -1,8 +1,8 @@
-import {_decorator, Collider2D, Component, Contact2DType, Label, Node, PhysicsSystem2D} from 'cc';
+import {_decorator, Collider2D, Component, Contact2DType, find, Label, Node, PhysicsSystem2D} from 'cc';
 import {PlayerControl} from './PlayerControl';
 import {EnemyManager} from './EnemyManager';
-import {BulletControl} from "db://assets/script/BulletControl";
-import {EnemyControl} from "db://assets/script/EnemyControl";
+import {EnemyControl} from './EnemyControl';
+import {BulletControl} from './BulletControl';
 
 const {ccclass, property} = _decorator;
 
@@ -47,6 +47,7 @@ export class GameManager extends Component {
         this.PlayerControlNode.isAddlisten(true)
         this.EnemyManagerNode.schedule(this.EnemyManagerNode.productEnemy, 0.5)
         this.stepLabel.string = "0"
+        this.step = 0
         this.just(true)
     }
 
@@ -93,7 +94,7 @@ export class GameManager extends Component {
 
     //与用户相撞
     onBeginContactSelf(self: Collider2D, other: Collider2D) {
-        if (self.tag === 2 || other.tag === 2) {
+        if ((self.tag === 2 && other.tag === 1) || (self.tag === 1 && other.tag === 2)) {
             if (self.tag === 1) {
                 self.getComponent(EnemyControl)?.die()
             }

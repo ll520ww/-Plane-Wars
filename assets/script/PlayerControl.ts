@@ -24,7 +24,7 @@ export class PlayerControl extends Component {
                 const node = instantiate(this.bullet);
                 node.setParent(this.node.parent);
                 node.setPosition(x, y + 70);
-            }, 0.5);
+            }, 0.1);
         } else {
             this.node.off(Node.EventType.TOUCH_MOVE, this.onMove,this)
             this.unscheduleAllCallbacks()
